@@ -1,11 +1,12 @@
 // fetch
-// Make a fetch request to get electronic products
 fetch("https://fakestoreapi.com/products")
-  .then(res => res.json())
-  .then(json => console.log(json))
+  .then(response => response.json())
   .then(data => {
-    // Loop through the data and create Bootstrap cards
-    data.slice(0, 20).forEach(product => {
+    const electronicProducts = data
+      .filter(product => product.category === "electronics")
+      .slice(0, 20);
+
+    electronicProducts.forEach(product => {
       const card = document.createElement("div");
       card.classList.add("card", "m-3");
 
@@ -29,7 +30,6 @@ fetch("https://fakestoreapi.com/products")
 
       card.appendChild(cardBody);
 
-      // Append the card to the container element
       document.getElementById("product-container").appendChild(card);
     });
   })
